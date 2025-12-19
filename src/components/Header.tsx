@@ -1,10 +1,12 @@
 import { Link } from '@tanstack/react-router'
 
 import { useState } from 'react'
-import { Home, Menu, X } from 'lucide-react'
+import { Home, LogIn, LogOut, Menu, User, UserPlus, X } from 'lucide-react'
+import { useAuth } from '../contexts/AuthContext'
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false)
+  const { isAuthenticated, user, logout } = useAuth()
 
   return (
     <>
@@ -57,10 +59,75 @@ export default function Header() {
             <span className="font-medium">Home</span>
           </Link>
 
+          {isAuthenticated && (
+            <Link
+              to="/profile"
+              onClick={() => setIsOpen(false)}
+              className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-800 transition-colors mb-2"
+              activeProps={{
+                className:
+                  'flex items-center gap-3 p-3 rounded-lg bg-cyan-600 hover:bg-cyan-700 transition-colors mb-2',
+              }}
+            >
+              <User size={20} />
+              <span className="font-medium">Profile</span>
+            </Link>
+          )}
+
           {/* Demo Links Start */}
 
           {/* Demo Links End */}
         </nav>
+
+        {/* Auth Section */}
+        <div className="p-4 border-t border-gray-700">
+          {isAuthenticated ? (
+            <div className="space-y-3">
+              <div className="flex items-center gap-3 p-3 bg-gray-800 rounded-lg">
+                <div className="w-10 h-10 bg-cyan-600 rounded-full flex items-center justify-center">
+                  <User size={20} className="text-white" />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <p className="text-sm font-medium text-white truncate">
+                    {user?.name}
+                  </p>
+                  <p className="text-xs text-gray-400 truncate">
+                    {user?.email}
+                  </p>
+                </div>
+              </div>
+              <button
+                onClick={() => {
+                  logout()
+                  setIsOpen(false)
+                }}
+                className="w-full flex items-center gap-3 p-3 rounded-lg hover:bg-red-900/50 text-red-400 hover:text-red-300 transition-colors"
+              >
+                <LogOut size={20} />
+                <span className="font-medium">Logout</span>
+              </button>
+            </div>
+          ) : (
+            <div className="space-y-2">
+              <Link
+                to="/login"
+                onClick={() => setIsOpen(false)}
+                className="flex items-center justify-center gap-2 p-3 rounded-lg bg-cyan-600 hover:bg-cyan-700 text-white transition-colors"
+              >
+                <LogIn size={20} />
+                <span className="font-medium">Sign In</span>
+              </Link>
+              <Link
+                to="/register"
+                onClick={() => setIsOpen(false)}
+                className="flex items-center justify-center gap-2 p-3 rounded-lg border border-cyan-600 text-cyan-400 hover:bg-cyan-600/10 transition-colors"
+              >
+                <UserPlus size={20} />
+                <span className="font-medium">Sign Up</span>
+              </Link>
+            </div>
+          )}
+        </div>
       </aside>
     </>
   )
