@@ -1,8 +1,8 @@
 import { Navigate, createFileRoute } from '@tanstack/react-router'
 import { Mail, Shield, User } from 'lucide-react'
-import { useAuth } from '../contexts/AuthContext'
+import { useAuth } from '../../contexts/AuthContext'
 
-export const Route = createFileRoute('/profile')({
+export const Route = createFileRoute('/(auth)/profile')({
   component: ProfilePage,
 })
 

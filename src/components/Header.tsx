@@ -1,7 +1,16 @@
 import { Link } from '@tanstack/react-router'
 
 import { useState } from 'react'
-import { Home, LogIn, LogOut, Menu, User, UserPlus, X } from 'lucide-react'
+import {
+  BookOpen,
+  Home,
+  LogIn,
+  LogOut,
+  Menu,
+  User,
+  UserPlus,
+  X,
+} from 'lucide-react'
 import { useAuth } from '../contexts/AuthContext'
 
 export default function Header() {
@@ -57,6 +66,19 @@ export default function Header() {
           >
             <Home size={20} />
             <span className="font-medium">Home</span>
+          </Link>
+
+          <Link
+            to="/blog"
+            onClick={() => setIsOpen(false)}
+            className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-800 transition-colors mb-2"
+            activeProps={{
+              className:
+                'flex items-center gap-3 p-3 rounded-lg bg-cyan-600 hover:bg-cyan-700 transition-colors mb-2',
+            }}
+          >
+            <BookOpen size={20} />
+            <span className="font-medium">Blog</span>
           </Link>
 
           {isAuthenticated && (
