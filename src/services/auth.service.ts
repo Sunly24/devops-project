@@ -1,5 +1,5 @@
 // Authentication API Service
-// Replace API_BASE_URL with your actual backend URL
+// Using API Gateway on port 8080
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8080/api'
 
@@ -11,6 +11,7 @@ export interface LoginCredentials {
 export interface RegisterData {
   email: string
   password: string
+  password_confirmation: string
   name: string
 }
 

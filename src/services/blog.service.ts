@@ -35,9 +35,24 @@ class BlogService {
    */
   async getAllPosts(): Promise<Array<BlogPost>> {
     try {
-      const posts = await apiRequest<Array<BlogPost>>('/content/getAllContent', {
+      const response = await apiRequest<{ message: string; data: Array<any> }>('/content/getAllContent', {
         requireAuth: false,
       })
+      
+      // Transform the backend response to match our BlogPost interface
+      const posts: Array<BlogPost> = response.data.map((item: any) => ({
+        id: item._id,
+        title: item.title,
+        body: item.body,
+        author: {
+          id: item.authorId,
+          name: 'Author', // Backend doesn't return author details
+          email: '',
+        },
+        createdAt: item.createdAt,
+        updatedAt: item.updatedAt,
+      }))
+      
       return posts
     } catch (error) {
       console.error('Error fetching blog posts:', error)
@@ -50,9 +65,25 @@ class BlogService {
    */
   async getPostById(id: string): Promise<BlogPost> {
     try {
-      const post = await apiRequest<BlogPost>(`/content/getContent/${id}`, {
+      const response = await apiRequest<{ message: string; data: any }>(`/content/getContent/${id}`, {
         requireAuth: false,
       })
+      
+      // Transform the backend response
+      const item = response.data
+      const post: BlogPost = {
+        id: item._id,
+        title: item.title,
+        body: item.body,
+        author: {
+          id: item.authorId,
+          name: 'Author',
+          email: '',
+        },
+        createdAt: item.createdAt,
+        updatedAt: item.updatedAt,
+      }
+      
       return post
     } catch (error) {
       console.error('Error fetching blog post:', error)

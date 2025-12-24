@@ -10,16 +10,16 @@ function WelcomePage() {
   const { isAuthenticated } = useAuth()
 
   return (
-    <div className="min-h-screen bg-linear-to-br from-gray-900 via-gray-800 to-gray-900">
+    <div className="h-screen bg-linear-to-br from-gray-900 via-gray-800 to-gray-900">
       {/* Hero Section */}
-      <div className="relative overflow-hidden">
+      <div className="relative overflow-hidden h-full flex items-center">
         <div className="absolute inset-0 bg-linear-to-r from-cyan-600/20 to-purple-600/20 backdrop-blur-3xl"></div>
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 sm:py-32">
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
           <div className="text-center">
             <h1 className="text-5xl sm:text-7xl font-bold text-white mb-6 animate-fade-in">
               Welcome to{' '}
               <span className="bg-linear-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">
-                DevOps Blog
+                Blog Platform
               </span>
             </h1>
             <p className="text-xl sm:text-2xl text-gray-300 mb-8 max-w-3xl mx-auto">
@@ -65,38 +65,6 @@ function WelcomePage() {
           </div>
         </div>
       </div>
-
-      {/* CTA Section */}
-      {!isAuthenticated && (
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-          <div className="bg-linear-to-r from-cyan-600 to-purple-600 rounded-3xl p-12 text-center">
-            <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
-              Ready to Get Started?
-            </h2>
-            <p className="text-xl text-cyan-100 mb-8">
-              Join our community today and start sharing your knowledge.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link
-                to="/register"
-                className="group px-8 py-4 bg-white hover:bg-gray-100 text-cyan-700 rounded-xl font-semibold text-lg transition-all duration-300 flex items-center justify-center gap-2 shadow-lg hover:scale-105"
-              >
-                Create Account
-                <ArrowRight
-                  size={20}
-                  className="group-hover:translate-x-1 transition-transform"
-                />
-              </Link>
-              <Link
-                to="/login"
-                className="px-8 py-4 bg-transparent hover:bg-white/10 text-white rounded-xl font-semibold text-lg transition-all duration-300 flex items-center justify-center gap-2 border-2 border-white"
-              >
-                Sign In
-              </Link>
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   )
 }
