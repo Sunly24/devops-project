@@ -36,7 +36,7 @@ function RegisterPage() {
     setLoading(true)
 
     try {
-      await register(email, password, name)
+      await register(email, password, name, confirmPassword)
       // Redirect to home page after successful registration
       navigate({ to: '/' })
     } catch (err) {

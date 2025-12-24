@@ -44,6 +44,14 @@ export async function apiRequest<T>(
     throw new Error('Unauthorized - please login again')
   }
 
+  // Handle 404 for content endpoints - return empty array
+  if (response.status === 404 && endpoint.includes('/content/')) {
+    const errorData = await response.json().catch(() => ({}))
+    if (errorData.message?.includes('Content Not found')) {
+      return { data: [] } as T
+    }
+  }
+
   if (!response.ok) {
     const error = await response.json().catch(() => ({
       message: `Request failed with status ${response.status}`,
